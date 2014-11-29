@@ -36,7 +36,6 @@ describe('Item', function(){
     });
   });
 
-
   describe('#save', function(){
     it('should save an item to the mongo database', function(done){
       var table = new Item('table', 'kitchen', '1/15/2014', 2, 100);
@@ -45,8 +44,8 @@ describe('Item', function(){
         done();
       }); 
     });
-  })
-  ;
+  });
+  
   describe('.find', function(){
     it('should find all the items from the mongo database', function(done){
       var table = new Item('table', 'kitchen', '1/15/2014', 2, 100);
@@ -57,7 +56,8 @@ describe('Item', function(){
          });
        }); 
      });
-    it('should find specific items from the mongo database', function(done){
+   
+   it('should find specific items from the mongo database', function(done){
       var table = new Item('table', 'kitchen', '1/15/2014', 2, 100);
       var couch = new Item('couch', 'livingroom', '3/24/2012', 1, 300);
       var chair = new Item('chair', 'livingroom', '4/10/2010', 3, 50);
@@ -75,27 +75,26 @@ describe('Item', function(){
           });
        });
     });
-    describe('#value', function(){
-      it('should find overall value of certain items', function(){
-        var couch = new Item('couch', 'livingroom', '3/24/2012', 2, 300);
-        expect(couch.value()).to.equal(600);
-
-      });
+    
+  describe('#value', function(){
+    it('should find overall value of certain items', function(){
+      var couch = new Item('couch', 'livingroom', '3/24/2012', 2, 300);
+      expect(couch.value()).to.equal(600);
     });
-    describe('.value', function(){
-      it('should give the value for all items in a room', function(done){
-        var table = new Item('table', 'livingroom', '1/15/2014', 2, 100);
-        var couch = new Item('couch', 'livingroom', '3/24/2012', 1, 300);
-        table.save(function(){
-          couch.save(function(){
-            Item.value('livingroom', function(value){
-              expect(value).to.equal(500);
-              done();
+  });
+    
+  describe('.value', function(){
+    it('should give the value for all items in a room', function(done){
+      var table = new Item('table', 'livingroom', '1/15/2014', 2, 100);
+      var couch = new Item('couch', 'livingroom', '3/24/2012', 1, 300);
+      table.save(function(){
+        couch.save(function(){
+          Item.value('livingroom', function(value){
+            expect(value).to.equal(500);
+            done();
           });
-         });
         });
       });
     });
-
-
- });
+  });
+});
