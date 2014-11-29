@@ -11,9 +11,6 @@ function Item(name, room, date, count, costEach){
   this.costEach  = costEach;
 }
 
-
-
-
 Item.prototype.save = function(cb){
   cItem.save(this, function(err, obj){
     cb();
@@ -33,28 +30,20 @@ Item.find = function(item, cb){
 };
 
 Item.value = function(area, cb){
-    cItem.find({room: area}).toArray(function(err, items){
+  cItem.find({room: area}).toArray(function(err, items){
     var sum = 0;
     for(var i = 0; i < items.length; i++){
       var item = items[i]; //Each items is set to the value of item[i]
       item = _.create(Item.prototype, item); //resets the prototype chain
       sum += item.value();
     }
-      cb(sum);
-    });
+    cb(sum);
+  });
 };
 
 Item.prototype.value = function(){
   return this.count * this.costEach;
 };
-
-
-
-
-
-
-
-
 
 module.exports = Item;
 
